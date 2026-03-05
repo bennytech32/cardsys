@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: cardsys-pro-demo
+    env: php
+    plan: free
+    # KAMA KODI ZAKO ZIPO NDANI YA FOLDER, BADILISHA HAPA CHINI (mf. rootDir: cardsys). 
+    # Kama zipo nje kabisa, futa huu mstari wa rootDir.
+    rootDir: . 
+    buildCommand: "composer install --no-dev --optimize-autoloader && php artisan optimize:clear && php artisan migrate --force"
+    startCommand: "php artisan serve --host=0.0.0.0 --port=$PORT"
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DB_DATABASE
+        value: /opt/render/project/src/database/database.sqlite
